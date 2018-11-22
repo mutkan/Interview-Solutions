@@ -236,4 +236,28 @@ class LRUCache{
  * obj.put(key,value);
  */
 
+//#344 Reverse String
+class Solution1 {
+    public String reverseString(String s) {
+        return new StringBuilder(s).reverse().toString();
+    }
+}
+
+class Solution2 {
+    public String reverseString(String s) {
+        int i = 0;
+        int j = s.length()-1;
+        byte[] words = s.getBytes();
+        
+        while(i<j) {
+            byte temp = words[i];
+            words[i] = words[j];
+            words[j] = temp;
+            i++;
+            j--;
+        }  
+        return new String(words);
+    }
+}
+
 //#19 Remove Nth of Node from end of list
