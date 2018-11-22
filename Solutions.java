@@ -152,4 +152,88 @@ class Solution {
     }
 }
 
+//#146 LRU Cache
+class Node {
+    int key, val;
+    Node pre, next;
+
+    Node(int key, int val) {
+        this.key = key;
+        this.val = val;
+    }
+}
+
+class LRUCache{
+    int capacity;
+    int count;
+    Node head, tail;
+
+    Map<Integer, Node> map;
+
+    public LRUCache(int capacity) {
+        this.capacity = capacity;
+        this.count = 0;
+
+        head = new Node(0,0);
+        tail = new Node(0,0);
+
+        head.pre = null;
+        head.next = tail;
+        tail.pre = head;
+        tail.next = null;
+
+        map = new HashMap<>();
+    }
+
+    private Node removeNode(Node node){
+        node.pre.next = node.next;
+        node.next.pre = node.pre;
+        map.remove(node.key);
+        count--;
+        return node;
+    }
+
+    private void addNode(Node node) {
+        node.next = head.next;
+        node.pre = head;
+        head.next = node;
+        node.next.pre = node;
+        map.put(node.key, node);
+        count++;
+    }
+
+    private void removeLastNode() {
+        map.remove(tail.pre.key);
+        tail.pre = tail.pre.pre;
+        tail.pre.next = tail;
+        count--;
+    }
+
+    public int get(int key) {
+        if(map.containsKey(key)) {
+            Node node = map.get(key);
+            addNode(removeNode(node));
+            return node.val;
+        }
+        return -1;
+    }
+
+    public void put(int key, int value) {
+        Node node = new Node(key, value);
+        if(map.containsKey(key)) {
+            removeNode(map.get(key));
+        }
+        if(count>=capacity) {
+            removeLastNode();
+        }
+        addNode(node);
+    }
+}
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache obj = new LRUCache(capacity);
+ * int param_1 = obj.get(key);
+ * obj.put(key,value);
+ */
+
 //#19 Remove Nth of Node from end of list
