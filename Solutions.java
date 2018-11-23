@@ -260,4 +260,26 @@ class Solution2 {
     }
 }
 
+//#402 Remove K digits
+class Solution {
+    public String removeKdigits(String num, int k) {
+        int newLength = num.length() - k;
+        char[] stack = new char[num.length()];
+        int top = 0;
+        for(int i =0; i<num.length(); i++) {
+            while(top>0 && stack[top-1]>num.charAt(i) && k>0) {
+                top--;
+                k--;
+            }
+            stack[top++] = num.charAt(i);
+        }
+        
+        int offset = 0;
+        while(offset<newLength && stack[offset]=='0') {
+            offset++;
+        }
+        return offset == newLength ? "0":new String(stack, offset, newLength-offset);
+    }
+}
+
 //#19 Remove Nth of Node from end of list
