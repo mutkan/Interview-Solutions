@@ -479,3 +479,17 @@ class Solution {
         return memo[0];
     }
 }
+
+//#53 Maximum Subarray
+class Solution {
+    public int maxSubArray(int[] nums) {
+        int maxSum = nums[0];
+        int maxEnd = nums[0];
+        for(int i=1; i<nums.length; i++) {
+            maxSum = Math.max(maxSum+nums[i], nums[i]);
+            maxEnd = Math.max(maxSum, maxEnd);
+        }
+        return maxEnd;
+    }
+}
+
