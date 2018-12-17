@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Marketplace</title>
+    <style>
+      /* ========================= */
+      /* WRITE YOUR CSS CODE BELOW */
+      /* ========================= */
+      body {
+        background-color: #FAFAFA;
+      }
+
+      .item {
+        border-bottom: 1px solid gray;
+        margin: 12px;
+      }
+
+      /* ========================= */
+      /* WRITE YOUR CSS CODE ABOVE */
+      /* ========================= */
+    </style>
+
+  </head>
+
+  <body onload="generateProductList()">
+
+    <div>
+      <label>Search:</label>
+      <input type="text" id="searchText" oninput="generateProductList()">
+    </div>
+    <ul id="results">
+      <!-- limited by time, I will keep the css and ui design. I would create <a>tag for name of the phones and put description below if given more time. I will also divide the li items into three vertical parts to show the review points as well as the image. -->
+      <li class="item">Google Pixel 3 XL Unlocked GSM/CDMA</li>
+      <li class="item">Apple iPhone X (64GB) Silver</li>
+      <li class="item">Samsung Galaxy S9 with 256GB Memory Cell Phone</li>
+      <li class="item">LG V35 ThinQ with 64GB Memory Cell Phone</li>
+    </ul>
+
+    <script src="index.js"></script>
+  </body>
+
+</html>

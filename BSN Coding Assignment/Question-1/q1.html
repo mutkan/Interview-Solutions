@@ -1,0 +1,89 @@
+<html>
+<head>
+<style>
+
+/* ============================= */
+/* DO NOT CHANGE THE BELOW STYLE */
+/* ============================= */
+.pointer {
+  position:absolute;
+  width:50px;
+  height:50px;
+  background-color: red;
+  z-index: 1;
+}
+
+.pointer:hover {
+  cursor: pointer;
+}
+
+.pointer.inside {
+  background-color: blue;
+}
+
+.target {
+  position: fixed;
+  top: calc(50% - 200px);
+  left: calc(50% - 300px);
+  width: 600px;
+  height: 400px;
+  background-color: lightgray;
+  text-align: center;
+}
+/* ============================= */
+/* DO NOT CHANGE THE ABOVE STYLE */
+/* ============================= */
+
+</style>
+<script>
+
+/* ===================== */
+/* WRITE YOUR CODE BELOW */
+/* ===================== */
+
+// When the document is finished loading, start() is called one time
+function start() {
+  var block = document.getElementById("pointer");
+  var tar = document.getElementById("target");
+  let move = false;
+
+  block.onclick = function() {
+    move = !move;
+    console.log(move);
+  }
+
+  document.addEventListener('mousemove', event => {
+    if (move === true) {
+      block.style.left = event.clientX + 'px';
+      block.style.top = event.clientY +'px';
+    }
+  });
+
+  tar.addEventListener('mouseenter', event => {
+    block.style.backgroundColor = "blue";
+    console.log("inside");
+  });
+  
+  tar.addEventListener('mouseleave', event => {
+    block.style.backgroundColor = "red";
+    console.log("outside");
+  });
+}
+
+/* ===================== */
+/* WRITE YOUR CODE ABOVE */
+/* ===================== */
+
+</script>
+</head>
+
+<!-- ============================ -->
+<!-- DO NOT CHANGE THE BELOW HTML -->
+<!-- ============================ -->
+
+<body onload="start()">
+  <div id="pointer" class="pointer"></div>
+  <div id="target" class="target">Target</div>
+</body>
+
+</html>
