@@ -581,3 +581,23 @@ class Solution {
     }
 }
 
+
+// #441 Arranging Coins
+class Solution1 {
+    public int arrangeCoins(int n) {
+        int current = 1, remainder = n-1;
+        while (remainder >= current+1) {
+            current++;
+            remainder -= current;
+        }
+        return n == 0 ? 0 : current;
+    }
+}
+
+class Solution2 {
+    public int arrangeCoins(int n) {
+        // root of n = (1+x)*x/2
+        return (int)((-1 + Math.sqrt(1+8*(long)n))/2);
+    }
+}
+
