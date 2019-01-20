@@ -706,3 +706,19 @@ class Solution4 {
         return true;
     }
 }
+
+
+// #686 Repeated String Match
+class Solution {
+    public int repeatedStringMatch(String A, String B) {
+        StringBuilder str = new StringBuilder(A);
+        int i;
+        for (i=1; str.length()<B.length(); i++) {
+            str.append(A);      
+        }
+        if (str.indexOf(B) >= 0) return i;
+        if (str.append(A).indexOf(B) >= 0)  return i+1;
+        return -1;
+    }
+}
+
