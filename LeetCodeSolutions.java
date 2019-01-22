@@ -795,7 +795,7 @@ class MedianFinder {
 }
 
 
-// @50 Pow(x,n)
+// #50 Pow(x,n)
 class Solution1 {
     public double myPow(double x, int n) {
         long N = n;
@@ -837,3 +837,18 @@ class Solution2 {
         return ans;
     }
 }
+
+
+// #69 Sqrt(x)
+class Solution {
+    public int mySqrt(int x) {
+        if (x == 0) return 0;
+        long y = x;
+        while (y > x/y) {
+            // Newton's method
+            y = (y + x/y)/2;
+        }
+        return (int)y;
+    }
+}
+
