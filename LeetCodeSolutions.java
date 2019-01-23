@@ -12,6 +12,7 @@ class Solution {
     }
 }
 
+
 //#20 Valid Parentheses
 class Solution {
     private HashMap<Character, Character> mappings;
@@ -37,6 +38,7 @@ class Solution {
         return stack.isEmpty();
     }
 }
+
 
 //#2 Add two numbers
 /**
@@ -87,6 +89,7 @@ class Solution {
     }
 }
 
+
 //#206 Reverse Linked List
 /**
  * Definition for singly-linked list.
@@ -110,6 +113,7 @@ class Solution {
     }
 }
 
+
 //#7 Reverse Integer
 class Solution {
     public int reverse(int x) {
@@ -128,6 +132,7 @@ class Solution {
         return rev;
     }
 }
+
 
 //#203 Remove Linked List elements
 /**
@@ -151,6 +156,7 @@ class Solution {
         }
     }
 }
+
 
 //#146 LRU Cache
 class Node {
@@ -236,6 +242,7 @@ class LRUCache{
  * obj.put(key,value);
  */
 
+
 //#344 Reverse String
 class Solution1 {
     public String reverseString(String s) {
@@ -260,6 +267,7 @@ class Solution2 {
     }
 }
 
+
 //#402 Remove K digits
 class Solution {
     public String removeKdigits(String num, int k) {
@@ -281,6 +289,7 @@ class Solution {
         return offset == newLength ? "0":new String(stack, offset, newLength-offset);
     }
 }
+
 
 //#19 Remove Nth of Node from end of list
 /**
@@ -330,6 +339,7 @@ class Solution2 {
     }
 }
 
+
 //#929 Unique email addresses
 class Solution {
     public int numUniqueEmails(String[] emails) {
@@ -348,6 +358,7 @@ class Solution {
     }
 }
 
+
 //#9 Palindrome Number
 class Solution {
     public boolean isPalindrome(int x) {
@@ -360,6 +371,7 @@ class Solution {
         return x==revert || x==revert/10;
     }
 }
+
 
 //#21 Merge Two Sorted Lists
 /**
@@ -405,6 +417,7 @@ class Solution2 {
     }
 }
 
+
 //#15 3 Sum
 class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
@@ -435,6 +448,7 @@ class Solution {
     }
 }
 
+
 //#27 Remove Elements
 class Solution {
     public int removeElement(int[] nums, int val) {
@@ -448,6 +462,7 @@ class Solution {
         return count;
     }
 }
+
 
 //#26 Remove Duplicates from sorted array
 class Solution {
@@ -464,6 +479,7 @@ class Solution {
     }
 }
 
+
 //#91 Decode Ways
 class Solution {
     public int numDecodings(String s) {
@@ -479,6 +495,7 @@ class Solution {
         return memo[0];
     }
 }
+
 
 //#53 Maximum Subarray
 class Solution {
@@ -907,7 +924,6 @@ public class Solution1 {
     }
 }
 
-
 public class Solution2 {
     public ListNode detectCycle(ListNode head) {
         if (head == null || head.next == null)  return null;
@@ -935,4 +951,37 @@ public class Solution2 {
         return null;
     }
 }
+
+
+// #121 Best time to buy and sell stock
+class Solution1 {
+    public int maxProfit(int[] prices) {
+        int maxProfit = 0;
+        for (int i = 0; i < prices.length; i++) {
+            for (int j = i + 1; j < prices.length; j++) {
+                int profit = prices[j] - prices[i];
+                if (profit > maxProfit) {
+                    maxProfit = profit;
+                }
+            }
+        }
+        return maxProfit;
+    }
+}
+
+class Solution2 {
+    public int maxProfit(int[] prices) {
+        int minPrice = Integer.MAX_VALUE;
+        int maxProfit = 0;
+        for (int i = 0; i < prices.length; i++) {
+            if (prices[i] < minPrice) {
+                minPrice = prices[i];
+            } else if (prices[i] - minPrice > maxProfit) {
+                maxProfit = prices[i] - minPrice;
+            }
+        }
+        return maxProfit;
+    }
+}
+
 
