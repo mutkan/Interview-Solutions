@@ -985,3 +985,56 @@ class Solution2 {
 }
 
 
+
+
+
+// #79 Word Search
+class Solution {
+    public boolean exist(char[][] board, String word) {
+        int m = board.length;
+        int n = board[0].length;
+        //这个数组记录了每个点是否使用过。这里不同于N皇后问题中只用了三个set，因为这里要精确到点，而不是整条边。
+        boolean[][] used = new boolean[m][n];
+        //得到word的字符数组，在之后的dfs过程中也是一直传递这个数组
+        char[] wordChars = word.toCharArray(); 
+        //对于每个点分别调用dfs,只有头字符相同时才调用，可以减少时间
+        for (int i = 0; i < m; ++i) {
+        for (int j = 0; j < n; ++j) {
+          if (wordChars[0] == board[i][j]) {
+            boolean res = dfs(board, wordChars, used, i, j, 0);
+              if (res)  return true;
+            }
+          }
+        }    
+        return false;
+    }
+
+    public boolean dfs(char[][] board, char[] word, boolean[][] used, int x, int y, int level) {
+      //截止到此层之前都没有被终止（层数等于word长度），证明可以找到匹配的单词
+      if (level == word.length) {
+        return true;
+      }
+      //判断是否当前要判断的char根本不存在board中
+      if (x >= board.length || x < 0 || y >= board[0].length || y < 0) {
+        return false;
+      }
+      //当前char与当前word对应层的char不相同则直接返回
+      if (word[level] != board[x][y]) {
+        return false;
+      }
+      //如果当前元素被使用过了，则直接返回
+      if (used[x][y] == true) {
+        return false;
+      } 
+      //表记当前元素为使用过
+      used[x][y] = true;   
+      //注意这是有返回值情况下dfs的标准写法，dfs递归调用，只要有一个是true, 则最终结果是true!
+      boolean result = dfs(board, word, used, x + 1, y, level + 1)
+        || dfs(board, word, used, x, y + 1, level + 1)
+        || dfs(board, word, used, x - 1, y, level + 1)
+        || dfs(board, word, used, x, y - 1, level + 1);
+      //恢复现场，删除标记
+      used[x][y] = false;
+      return result;
+    }
+}
