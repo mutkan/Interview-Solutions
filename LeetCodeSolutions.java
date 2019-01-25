@@ -1088,3 +1088,48 @@ class Solution {
         return R-L-1;
     }
 }
+
+
+// #977 Squares of a Sorted Array
+class Solution1 {
+    public int[] sortedSquares(int[] A) {
+        int[] ans = new int[A.length];
+        for (int i = 0; i < A.length; i++) {
+            ans[i] = A[i]*A[i];
+        }
+        Arrays.sort(ans);
+        return ans;
+    }
+}
+
+class Solution2 {
+    public int[] sortedSquares(int[] A) {
+        int j = 0;
+        while (j < A.length && A[j] < 0) {
+            j++;
+        }
+        int i = j-1;
+        
+        int[] ans = new int[A.length];
+        int t = 0;
+        
+        while (i >= 0 && j < A.length) {
+            if (A[i]*A[i] < A[j]*A[j]) {
+                ans[t++] = A[i]*A[i];
+                i--;
+            } else {
+                ans[t++] = A[j]*A[j];
+                j++;
+            }
+        }      
+        while (i >= 0) {
+            ans[t++] = A[i]*A[i];
+            i--;
+        }       
+        while (j < A.length) {
+            ans[t++] = A[j]*A[j];
+            j++;
+        }      
+        return ans;
+    }
+}
