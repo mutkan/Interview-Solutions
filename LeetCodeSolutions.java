@@ -985,7 +985,28 @@ class Solution2 {
 }
 
 
-
+// #122 Best time to buy and sell stock II
+class Solution {
+    public int maxProfit(int[] prices) {
+        int i = 0;
+        if (prices.length < 2) return 0;
+        int valley = prices[0];
+        int peak = prices[0];
+        int maxProfit = 0;
+        while (i < prices.length - 1) {
+            while (i < prices.length - 1 && prices[i] >= prices[i+1]) {
+                i++;
+            }
+            valley = prices[i];
+            while (i < prices.length - 1 && prices[i] <= prices[i+1]) {
+                i++;
+            }
+            peak = prices[i];
+            maxProfit += peak - valley;
+        }
+        return maxProfit;
+    }
+}
 
 
 // #79 Word Search
