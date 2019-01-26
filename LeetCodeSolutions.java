@@ -1133,3 +1133,34 @@ class Solution2 {
         return ans;
     }
 }
+
+
+// #38 Count and Say
+class Solution {
+    public String countAndSay(int n) {
+        String result= "1";
+        for (int i = 1; i < n; i++) {
+            result = countNumbers(result);
+        }
+        return result;
+    }
+    
+    private String countNumbers(String str) {
+        StringBuilder s = new StringBuilder();
+        int count = 1;
+        char c = str.charAt(0);
+        for (int i = 1; i < str.length(); i++) {
+            if (str.charAt(i) == c) {
+                count++;
+            } else {
+                s.append(count);
+                s.append(c);
+                c = str.charAt(i);
+                count = 1;
+            }
+        }
+        s.append(count);
+        s.append(c);
+        return s.toString();
+    }
+}
