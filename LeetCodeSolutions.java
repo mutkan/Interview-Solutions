@@ -1164,3 +1164,27 @@ class Solution {
         return s.toString();
     }
 }
+
+
+// #984 String Without AAA or BBB
+class Solution {
+    public String strWithout3a3b(int A, int B) {
+        StringBuilder result = new StringBuilder();
+        int size = A + B;
+        int a = 0, b = 0;
+        for (int i = 0; i < size; i++) {
+            if ((A >= B && a != 2) || b == 2) {
+                result.append("a");
+                A--;
+                a++;
+                b = 0;
+            } else if((B >= A && b != 2) || a ==2) {
+                result.append("b");
+                b++;
+                B--;
+                a = 0;
+            }
+        }
+        return result.toString();
+    }
+}
