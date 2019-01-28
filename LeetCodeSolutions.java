@@ -1188,3 +1188,85 @@ class Solution {
         return result.toString();
     }
 }
+
+
+// #149 Max Points on a Line
+/**
+ * Definition for a point.
+ * class Point {
+ *     int x;
+ *     int y;
+ *     Point() { x = 0; y = 0; }
+ *     Point(int a, int b) { x = a; y = b; }
+ * }
+ */
+import javafx.util.Pair; 
+class Solution {
+    
+    Point [] points;
+    int n;
+    Map<Pair<Double, Double>, Integer> lines = new HashMap<Pair<Double, Double>, Integer>();
+    Map<Integer, Integer> horizontal_lines = new HashMap<Integer, Integer>();
+    
+    public Pair<Integer, Integer> add_line(int i, int j, int count, int duplicates) {
+        /*  Add a line passing through i and j points,
+            Update max number of points on a line containing point i,
+            Update a number of duplicates of i point
+        */
+        // rewrite points as coordinates
+        int x1 = points[i].x;
+        int x2 = points[j].x;
+        int y1 = points[i].y;
+        int y2 = points[j].y;
+        // add a horizontal line y=const
+        if ((x1 == x2) && (y1 == y2)) {
+            duplicates++;
+        } else if (y1 == y2) {
+            horizontal_lines.put(y1, horizontal_lines.getOrDefault(y1, 1)+1);
+            count = Math.max(horizontal_lines.get(y1), count);
+        } else {
+            // Add 0.0 to avoid "-0.0"
+            double slope = 1.0 * (x1 -x2) / (y1 - y2) + 0.0;
+            double c = 1.0 * (y1 * x2 - y2 * x1) / (y1 - y2) + 0.0;
+            Pair p = new Pair(slope, c);
+            lines.put(p, lines.getOrDefault(p, 1) + 1);
+            count = Math.max(lines.get(p), count);
+        }
+        return new Pair(count, duplicates);
+    }
+    
+    public int max_on_a_line_containing_point_i(int i) {
+        // Compute max number of points for a line containing point i
+        // inital lines passing through point i
+        lines.clear();
+        horizontal_lines.clear();
+        int count = 1;
+        int duplicates = 0;
+        
+        /*  Compute lines passing through point i and point j
+            Update in a loopp the number of points on a line and number of duplicates of point i
+        */
+        for (int j = i + 1; j < n; j++) {
+            Pair<Integer, Integer> p = add_line(i, j, count, duplicates);
+            count = p.getKey();
+            duplicates = p.getValue();
+        }
+        return count + duplicates;
+    }
+    
+    public int maxPoints(Point[] points) {
+        this.points = points;
+        n = points.length;
+        // If number of points is less than 3, they are all on the same line
+        if (n < 3) {
+            return n;
+        }
+        
+        int max_count = 1;
+        // Compute in a loop a max number of points on a line containing point i
+        for (int i = 0; i < n - 1; i++) {
+            max_count = Math.max(max_on_a_line_containing_point_i(i), max_count);
+        }
+        return max_count;
+    }
+}
