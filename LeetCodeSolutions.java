@@ -1316,3 +1316,33 @@ class Solution {
         return 0.0;
     }
 }
+
+
+// #41 First Missing Positive
+class Solution {
+    public int firstMissingPositive(int[] nums) {
+        // O(n) in time and O(1) in space
+        // loop over the elements and swap nums[i] and nums[nums[i]-1] until nums[i] == i+1
+        // Then loop again to find an index where nums[i] != i+1. If that exits, i+1 is the missing value we are looking for. 
+        // Otherwise, the missing value should be nums.length+1
+        for (int i = 0; i < nums.length; i++) {
+            while (nums[i] > 0 && nums[i] - 1 < nums.length && nums[i] != nums[nums[i] - 1]) {
+                swap(nums, i, nums[i] - 1);
+            }
+        }
+        
+        for (int k = 0; k < nums.length; k++) {
+            if (nums[k] != k + 1) {
+                return k + 1;
+            }
+        }
+        return nums.length + 1;
+    }
+    
+    private void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+}
+
