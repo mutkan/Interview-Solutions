@@ -1346,3 +1346,34 @@ class Solution {
     }
 }
 
+
+// #771 Jewels and Stones
+class Solution1 {
+    public int numJewelsInStones(String J, String S) {
+        Set<Character> Jewels = new HashSet();
+        for (char j: J.toCharArray()) {
+            Jewels.add(j);
+        }
+        int sum = 0;
+        for (char s: S.toCharArray()) {
+            if (Jewels.contains(s)) {
+                sum++;
+            }
+        }
+        return sum;
+    }
+}
+
+class Solution2 {
+    public int numJewelsInStones(String J, String S) {
+        int jewels = 0;
+        for (int i = 0; i < J.length(); i++) {
+            for (int j = 0; j < S.length(); j++) {
+                if (S.charAt(j) == J.charAt(i)) {
+                    jewels++;
+                }
+            }
+        }
+        return jewels;
+    }
+}
