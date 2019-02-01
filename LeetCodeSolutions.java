@@ -1377,3 +1377,17 @@ class Solution2 {
         return jewels;
     }
 }
+
+
+// #482 License Key Formatting
+class Solution {
+    public String licenseKeyFormatting(String S, int K) {
+        StringBuilder str = new StringBuilder();
+        for (int i = S.length()-1; i >= 0; i--) {
+            if (S.charAt(i) != '-') {
+                str.append(str.length() % (K+1) == K ? '-' : "").append(S.charAt(i));
+            }
+        }
+        return str.reverse().toString().toUpperCase();
+    }
+}
